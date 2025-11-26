@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me | Peculiar Marcellinus</title>
+
+  <style>
+    body {
+      background: #0a0f24;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica Neu, sans-serif;
+    }
+
+    .page-wrapper {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .contact-container {
+      width: 100%;
+      max-width: 700px;
+      background: #11172e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        6
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      }
+
+      .contact-container h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .contact-container p {
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #1c2546;
+      color: #fff;
+      border-radius: 8px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus, textarea:focus {
+      border: 1px solid #4da3ff;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #1a73e8;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #0f5cc6;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Popup */
+    .popup-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-box {
+      background: #11172e;
+      padding: 25px;
+      width: 80%;
+      max-width: 350px;
+      border-radius: 12px;
+      text-align: center;
+      animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.7);
+      opacity: 0;
+      }
+      to {
+        transform: scale(1);
+      opacity: 1;
+      }
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #1a73e8;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+}
+    </style>
+    <link rel="stylesheet" href="style.css" defer>
+    <!-- EMAILJS v3 -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+      emailjs.init({
+        publicKey: "tKCuu_ijSwgJk-iqx"
+      });
+    </script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          MP
+        </div>
+
+        <div class="menu-toggle" id="menu-toggle">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="Index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://marcostellarportfoloi34.vercel.app/#">Crash Portfolio</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="page-wrapper">
+      <div class="contact-container">
+        <h1>Contact Me</h1>
+        <p>
+          Have a question or project in mind? Send me a message.
+        </p>
+
+        <form id="contactForm">
+
+          <div class="input-group">
+            <label for="name">Full Name</label>
+            <input id="name" type="text" required />
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="message">Message</label>
+        <textarea id="message" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Send Message</button>
+      <p id="status"></p>
+
+    </form>
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="popup-bg" id="popupBg">
+  <div class="popup-box">
+    <h2>Message Sent ✔</h2>
+    <p>
+      Thank you for contacting me. I will reply as soon as possible.
+    </p>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+</div>
+<!---FOOTER-->
+<footer>
+  <p>
+    © 2025 Peculiar Marcellinus
+  </p>
+</footer>
+<script src="script.js" defer>
+</script>
+<script>
+  const form = document.getElementById("contactForm");
+  const statusMsg = document.getElementById("status");
+  const popupBg = document.getElementById("popupBg");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    statusMsg.textContent = "Sending...";
+    statusMsg.style.color = "#4da3ff";
+
+    emailjs.send("service_lqpjzy9", "template_6k582cz", {
+      name: name, // ✅ matches {{name}}
+      reply_to: email, // ✅ matches {{reply_to}}
+      message: message // ✅ matches {{message}}
+    })
+    .then(()=>
+      {
+        popupBg.style.display = "flex";
+        statusMsg.textContent = "";
+        form.reset();
+      })
+    .catch((err) => {
+      console.error("EmailJS Error:", err);
+      statusMsg.textContent = "Failed to send message.";
+      statusMsg.style.color = "red";
+    });
+  });
+</script>
+
+</body>
+</html>
